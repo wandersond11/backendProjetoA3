@@ -27,9 +27,24 @@ class CalcularPainelSolarTest {
         DadosCalculoDto dadosCalculoDto = new DadosCalculoDto(900,0.91,5,220,null);
 
         // Lista de painéis solares disponíveis
-        PainelSolar painel1 = new PainelSolar(1L, "Painel A", 250.0, 2.5, 160.0 ); // ID, descrição, potência, valor, área, custo
-        PainelSolar painel2 = new PainelSolar(2L, "Painel B", 300.0, 2.8, 180.0 );
-        PainelSolar painel3 = new PainelSolar(3L, "Painel C", 350.0, 3.0, 200.0);
+        PainelSolar painel1 = new PainelSolar(); // ID, descrição, potência, valor, área, custo
+        painel1.setId(1l);
+        painel1.setDescricao("Painel A");
+        painel1.setPotencia(250.0);
+        painel1.setArea(2.5);
+        painel1.setValor(220.0);
+        PainelSolar painel2 = new PainelSolar();
+        painel2.setId(2l);
+        painel2.setDescricao("Painel B");
+        painel2.setPotencia(300.0);
+        painel2.setArea(2.8);
+        painel2.setValor(180.0);
+        PainelSolar painel3 = new PainelSolar();
+        painel3.setId(3l);
+        painel3.setDescricao("Painel C");
+        painel3.setPotencia(350.0);
+        painel3.setArea(3.0);
+        painel3.setValor(200.0);
 
         List<PainelSolar> modulos = Arrays.asList(painel1, painel2, painel3);
 
