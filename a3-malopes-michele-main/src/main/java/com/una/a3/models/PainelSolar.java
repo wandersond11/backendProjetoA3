@@ -18,6 +18,17 @@ public class PainelSolar {
     private Double valor;
     private String descricao; // Adicionando o campo de descrição
 
+    // Construtor completo
+    public PainelSolar(Long id, String marca, Double potencia, Double area, Double valor) {
+        this.id = id;
+        this.potencia = potencia;
+        this.marca = marca;
+        this.area = area;
+        this.valor = valor;
+        this.descricao = marca + " " + potencia + "W"; // Definir a descrição com base na marca e potência
+    }
+
+
     public Long getId() {
         return id;
     }

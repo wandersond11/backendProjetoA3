@@ -58,9 +58,7 @@ class UsuarioControllerTest {
     void testSaveUsuario() {
         Usuario usuario = new Usuario();
         when(usuarioRepository.save(usuario)).thenReturn(usuario);
-
         ResponseEntity<Usuario> responseEntity = usuarioController.saveUsuario(usuario);
-
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(usuario, responseEntity.getBody());
     }
@@ -73,9 +71,7 @@ class UsuarioControllerTest {
         usuario.setNome("Teste");
         when(usuarioRepository.findById(id)).thenReturn(Optional.of(usuario));
         when(usuarioRepository.save(usuario)).thenReturn(usuario);
-
         ResponseEntity<Usuario> responseEntity = usuarioController.updateUsuario(id, usuario);
-
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(usuario, responseEntity.getBody());
     }
@@ -84,9 +80,18 @@ class UsuarioControllerTest {
     void testDeleteUsuario() {
         Long id = 1L;
         ResponseEntity<Void> responseEntity = usuarioController.deleteUsuario(id);
-
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         verify(usuarioRepository, times(1)).deleteById(id);
+    }
+
+
+    @Test
+    void testDeleteUsuarioNaoEncontrado() {
+        Long id = 1L;
+        //simula uma execao quando o metodo é chamado
+        doThrow(new RuntimeException()).when(usuarioRepository).deleteById(id);
+        ResponseEntity<Void> responseEntity = usuarioController.deleteUsuario(id);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
     }
 
     @Test
@@ -96,9 +101,7 @@ class UsuarioControllerTest {
         usuario.setNome("username");
         usuario.setSenha("password");
         when(usuarioRepository.findByNome("username")).thenReturn(Optional.of(usuario));
-
         ResponseEntity<?> responseEntity = usuarioController.login(loginDto);
-
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(UsuarioDTO.class, responseEntity.getBody().getClass());
     }

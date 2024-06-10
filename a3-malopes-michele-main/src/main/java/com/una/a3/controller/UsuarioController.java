@@ -55,12 +55,17 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        usuarioRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        try {
+            usuarioRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto login) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findByNome(login.getNome());
+        // o when vai alterar esse retorno
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
             if (usuario.getSenha().equals(login.getSenha())) {
